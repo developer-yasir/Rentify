@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import UserManagement from './pages/UserManagement';
+import ListingsManagement from './pages/ListingsManagement';
 import AdminPrivateRoute from './components/AdminPrivateRoute';
 
 function App() {
@@ -25,6 +26,14 @@ function App() {
           element={
             <AdminPrivateRoute>
               <UserManagement />
+            </AdminPrivateRoute>
+          }
+        />
+        <Route 
+          path="/admin/listings"
+          element={
+            <AdminPrivateRoute>
+              <ListingsManagement />
             </AdminPrivateRoute>
           }
         />
