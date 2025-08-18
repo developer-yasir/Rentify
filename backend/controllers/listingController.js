@@ -122,47 +122,57 @@ const seedListings = asyncHandler(async (req, res) => {
     throw new Error('Admin user not found. Please seed admin user first.');
   }
 
-  const sampleListings = [
+  const baseListings = [
     {
-      owner: adminUser._id,
-      title: 'Cozy Apartment in Downtown',
-      description: 'A beautiful 1-bedroom apartment in the heart of the city.',
+      title: 'Cozy Apartment',
+      description: 'A beautiful 1-bedroom apartment.',
       category: 'Property',
       price: 1200,
       location: 'New York, NY',
-      images: ['https://via.placeholder.com/300x200?text=Apartment1', 'https://via.placeholder.com/300x200?text=Apartment2'],
+      images: ['https://via.placeholder.com/300x200?text=Apartment'],
     },
     {
-      owner: adminUser._id,
-      title: 'Spacious Family SUV',
-      description: 'Perfect for family trips, comfortable and reliable.',
+      title: 'Spacious SUV',
+      description: 'Perfect for family trips.',
       category: 'Vehicle',
       price: 50,
       location: 'Los Angeles, CA',
-      images: ['https://via.placeholder.com/300x200?text=SUV1', 'https://via.placeholder.com/300x200?text=SUV2'],
+      images: ['https://via.placeholder.com/300x200?text=SUV'],
     },
     {
-      owner: adminUser._id,
-      title: 'Modern Office Chair',
-      description: 'Ergonomic design for long working hours.',
+      title: 'Modern Chair',
+      description: 'Ergonomic design for long hours.',
       category: 'Furniture',
       price: 15,
       location: 'Chicago, IL',
-      images: ['https://via.placeholder.com/300x200?text=Chair1', 'https://via.placeholder.com/300x200?text=Chair2'],
+      images: ['https://via.placeholder.com/300x200?text=Chair'],
     },
     {
-      owner: adminUser._id,
-      title: 'High-Performance Gaming Laptop',
-      description: 'Experience gaming like never before with this powerful machine.',
+      title: 'Gaming Laptop',
+      description: 'High-performance machine.',
       category: 'Gadget',
       price: 80,
       location: 'Houston, TX',
-      images: ['https://via.placeholder.com/300x200?text=Laptop1', 'https://via.placeholder.com/300x200?text=Laptop2'],
+      images: ['https://via.placeholder.com/300x200?text=Laptop'],
     },
   ];
 
+  const generatedListings = [];
+  for (let i = 0; i < 5; i++) { // Generate 5 sets of 4 listings = 20 listings
+    baseListings.forEach((baseListing) => {
+      generatedListings.push({
+        ...baseListing,
+        owner: adminUser._id,
+        title: `${baseListing.title} ${i + 1}`,
+        price: baseListing.price + (i * 10),
+        location: `${baseListing.location.split(',')[0]}, Area ${i + 1}`,
+        images: baseListing.images.map(img => `${img}${i + 1}`)
+      });
+    });
+  }
+
   await Listing.deleteMany({}); // Clear existing listings before seeding
-  const createdListings = await Listing.insertMany(sampleListings);
+  const createdListings = await Listing.insertMany(generatedListings);
 
   res.status(201).json({ message: 'Listings seeded successfully.', listings: createdListings });
 });
