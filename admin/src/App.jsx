@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboard from './pages/AdminDashboard';
 import UserManagement from './pages/UserManagement';
@@ -9,6 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/" element={<Navigate to="/admin/login" replace />} />
         
         {/* Admin Protected Routes */}
         <Route 
