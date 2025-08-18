@@ -1,14 +1,37 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 import '../index.css';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login submitted:', { email, password });
-    // TODO: Integrate with backend API
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const { data } = await axios.post(
+        '/api/users/login',
+        { email, password },
+        config
+      );
+
+      console.log('Login successful:', data);
+      login(data); // Update auth context
+      navigate('/'); // Redirect to home page or dashboard
+    } catch (error) {
+      console.error('Login failed:', error.response.data.message);
+      alert(error.response.data.message || 'Login failed');
+    }
   };
 
   return (

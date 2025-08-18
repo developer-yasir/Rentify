@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 import '../index.css';
 
 function RegisterPage() {
@@ -6,15 +9,36 @@ function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert('Passwords do not match');
       return;
     }
-    console.log('Register submitted:', { username, email, password });
-    // TODO: Integrate with backend API
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const { data } = await axios.post(
+        '/api/users/register',
+        { username, email, password },
+        config
+      );
+
+      console.log('Registration successful:', data);
+      login(data); // Update auth context
+      navigate('/'); // Redirect to home page or dashboard
+    } catch (error) {
+      console.error('Registration failed:', error.response.data.message);
+      alert(error.response.data.message || 'Registration failed');
+    }
   };
 
   return (
