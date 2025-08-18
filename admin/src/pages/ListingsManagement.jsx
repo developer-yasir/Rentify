@@ -70,6 +70,11 @@ function ListingsManagement() {
     }
   };
 
+  const handleAddClick = () => {
+    setEditingListing(null); // Ensure no previous editing data is present
+    setShowForm(true);
+  };
+
   return (
     <div style={{
       padding: '2rem',
@@ -84,7 +89,7 @@ function ListingsManagement() {
         Listings Management
       </h1>
 
-      <button onClick={() => setShowForm(!showForm)} style={{
+      <button onClick={handleAddClick} style={{
         padding: '0.8rem 1.5rem',
         borderRadius: '4px',
         border: 'none',
@@ -94,11 +99,11 @@ function ListingsManagement() {
         cursor: 'pointer',
         marginBottom: '1.5rem'
       }}>
-        {showForm ? 'Hide Form' : 'Add New Listing'}
+        Add New Listing
       </button>
 
       {showForm && (
-        <ListingForm onSave={handleSave} initialData={editingListing} />
+        <ListingForm onSave={handleSave} initialData={editingListing || {}} />
       )}
 
       {loading ? (
