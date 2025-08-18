@@ -1,10 +1,14 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const userRoutes = require('./routes/userRoutes');
 
 dotenv.config();
 
 const app = express();
+
+// Middleware to parse JSON body
+app.use(express.json());
 
 // Connect to MongoDB
 const connectDB = async () => {
@@ -22,6 +26,9 @@ connectDB();
 app.get('/', (req, res) => {
   res.send('API is running...');
 });
+
+// User routes
+app.use('/api/users', userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
