@@ -30,16 +30,16 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-// User routes
-app.use('/api/users', userRoutes);
-// Listing routes
-app.use('/api/listings', listingRoutes);
-
-// Admin seed route (TEMPORARY - REMOVE AFTER USE)
+// Admin seed route (TEMPORARY - REMOVE AFTER USE) - Define more specific routes first
 app.use('/api/admin', adminSeedRoutes);
 
-// Listing seed route (TEMPORARY - REMOVE AFTER USE)
-app.use('/api/seed/listings', listingSeedRoutes); // Changed path to avoid conflict
+// Listing seed route (TEMPORARY - REMOVE AFTER USE) - Define more specific routes first
+app.use('/api/seed/listings', listingSeedRoutes); 
+
+// User routes
+app.use('/api/users', userRoutes);
+// Listing routes - Define more general routes later
+app.use('/api/listings', listingRoutes);
 
 const PORT = process.env.PORT || 5000;
 
