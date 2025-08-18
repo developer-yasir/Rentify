@@ -39,7 +39,7 @@ app.use('/api/listings', listingRoutes);
 app.use('/api/admin', adminSeedRoutes);
 
 // Listing seed route (TEMPORARY - REMOVE AFTER USE)
-app.use('/api/listings', listingSeedRoutes);
+app.use('/api/seed/listings', listingSeedRoutes); // Changed path to avoid conflict
 
 const PORT = process.env.PORT || 5000;
 
