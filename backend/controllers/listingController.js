@@ -124,53 +124,53 @@ const seedListings = asyncHandler(async (req, res) => {
     throw new Error('Admin user not found. Please seed admin user first.');
   }
 
-  const baseListings = [
+  const propertyListings = [
     {
-      title: 'Cozy Apartment',
-      description: 'A beautiful 1-bedroom apartment.',
+      title: 'Modern Downtown Apartment',
+      description: 'Spacious 2-bedroom apartment with city views.',
       category: 'Property',
-      price: 1200,
+      price: 1500,
       location: 'New York, NY',
-      images: ['https://via.placeholder.com/300x200?text=Apartment'],
-      amenities: ['Wi-Fi', 'Parking', 'Furnished'],
+      images: ['https://via.placeholder.com/300x200?text=ModernApt1', 'https://via.placeholder.com/300x200?text=ModernApt2'],
+      amenities: ['Gym', 'Pool', 'Balcony', 'Pet-Friendly'],
     },
     {
-      title: 'Spacious SUV',
-      description: 'Perfect for family trips.',
-      category: 'Vehicle',
-      price: 50,
+      title: 'Cozy Suburban House',
+      description: 'Family-friendly house with a large backyard.',
+      category: 'Property',
+      price: 2000,
       location: 'Los Angeles, CA',
-      images: ['https://via.placeholder.com/300x200?text=SUV'],
-      amenities: ['AC', 'GPS', 'Automatic'],
+      images: ['https://via.placeholder.com/300x200?text=House1', 'https://via.placeholder.com/300x200?text=House2'],
+      amenities: ['Garage', 'Garden', 'Dishwasher'],
     },
     {
-      title: 'Modern Chair',
-      description: 'Ergonomic design for long hours.',
-      category: 'Furniture',
-      price: 15,
+      title: 'Studio Loft in Arts District',
+      description: 'Stylish studio perfect for artists and creatives.',
+      category: 'Property',
+      price: 900,
       location: 'Chicago, IL',
-      images: ['https://via.placeholder.com/300x200?text=Chair'],
-      amenities: ['Adjustable Height', 'Lumbar Support'],
+      images: ['https://via.placeholder.com/300x200?text=StudioLoft1', 'https://via.placeholder.com/300x200?text=StudioLoft2'],
+      amenities: ['High Ceilings', 'Natural Light'],
     },
     {
-      title: 'Gaming Laptop',
-      description: 'High-performance machine.',
-      category: 'Gadget',
-      price: 80,
-      location: 'Houston, TX',
-      images: ['https://via.placeholder.com/300x200?text=Laptop'],
-      amenities: ['High Refresh Rate', 'Dedicated GPU'],
+      title: 'Luxury Condo with Ocean View',
+      description: 'Exclusive beachfront condo with premium amenities.',
+      category: 'Property',
+      price: 3000,
+      location: 'Miami, FL',
+      images: ['https://via.placeholder.com/300x200?text=OceanCondo1', 'https://via.placeholder.com/300x200?text=OceanCondo2'],
+      amenities: ['Private Beach Access', 'Spa', 'Concierge'],
     },
   ];
 
   const generatedListings = [];
-  for (let i = 0; i < 5; i++) { // Generate 5 sets of 4 listings = 20 listings
-    baseListings.forEach((baseListing) => {
+  for (let i = 0; i < 5; i++) { // Generate 5 sets of 4 property listings = 20 listings
+    propertyListings.forEach((baseListing) => {
       generatedListings.push({
         ...baseListing,
         owner: adminUser._id,
         title: `${baseListing.title} ${i + 1}`,
-        price: baseListing.price + (i * 10),
+        price: baseListing.price + (i * 100),
         location: `${baseListing.location.split(',')[0]}, Area ${i + 1}`,
         images: baseListing.images.map(img => `${img}${i + 1}`),
         amenities: baseListing.amenities,
