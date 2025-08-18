@@ -35,8 +35,13 @@ const listingSchema = mongoose.Schema(
     ],
     availability: {
       type: Boolean,
-      default: true,
+      default: true
     },
+    amenities: [
+      {
+        type: String,
+      },
+    ],
     // Add more fields as needed, e.g., booking calendar, ratings, etc.
   },
   {

@@ -177,7 +177,7 @@ function ListingDetailPage() {
         <p>{listing.description}</p>
       </div>
 
-      {/* Key Features/Amenities List (Placeholder) */}
+      {/* Key Features/Amenities List */}
       <div style={{
         backgroundColor: '#fff',
         padding: '1.5rem',
@@ -186,14 +186,18 @@ function ListingDetailPage() {
         marginBottom: '1.5rem'
       }}>
         <h2 style={{ color: 'var(--secondary-color)', marginBottom: '1rem' }}>Key Features</h2>
-        <ul>
-          <li>Feature 1 (e.g., Wi-Fi)</li>
-          <li>Feature 2 (e.g., Parking)</li>
-          <li>Feature 3 (e.g., Pet-Friendly)</li>
-        </ul>
+        {listing.amenities && listing.amenities.length > 0 ? (
+          <ul style={{ listStyle: 'none', padding: '0', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.5rem' }}>
+            {listing.amenities.map((amenity, index) => (
+              <li key={index} style={{ backgroundColor: 'var(--light-background-color)', padding: '0.5rem', borderRadius: '4px', textAlign: 'center' }}>{amenity}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No specific amenities listed.</p>
+        )}
       </div>
 
-      {/* Owner Information/Contact (Placeholder) */}
+      {/* Owner Information/Contact */}
       <div style={{
         backgroundColor: '#fff',
         padding: '1.5rem',
@@ -202,19 +206,26 @@ function ListingDetailPage() {
         marginBottom: '1.5rem'
       }}>
         <h2 style={{ color: 'var(--secondary-color)', marginBottom: '1rem' }}>Owner Information</h2>
-        <p><strong>Owner:</strong> {listing.owner} (ID - will be name later)</p>
-        <button style={{
-          padding: '0.8rem 1.5rem',
-          borderRadius: '4px',
-          border: 'none',
-          backgroundColor: 'var(--primary-color)',
-          color: '#fff',
-          fontSize: '1rem',
-          cursor: 'pointer',
-          marginTop: '1rem'
-        }}>
-          Contact Owner
-        </button>
+        {listing.owner ? (
+          <>
+            <p><strong>Username:</strong> {listing.owner.username}</p>
+            <p><strong>Email:</strong> {listing.owner.email}</p>
+            <button style={{
+              padding: '0.8rem 1.5rem',
+              borderRadius: '4px',
+              border: 'none',
+              backgroundColor: 'var(--primary-color)',
+              color: '#fff',
+              fontSize: '1rem',
+              cursor: 'pointer',
+              marginTop: '1rem'
+            }}>
+              Contact Owner
+            </button>
+          </>
+        ) : (
+          <p>Owner information not available.</p>
+        )}
       </div>
 
       {/* Booking/Availability Calendar (Placeholder) */}

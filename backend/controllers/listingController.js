@@ -28,7 +28,7 @@ const getListings = asyncHandler(async (req, res) => {
 // @route   GET /api/listings/:id
 // @access  Public
 const getListingById = asyncHandler(async (req, res) => {
-  const listing = await Listing.findById(req.params.id);
+  const listing = await Listing.findById(req.params.id).populate('owner', 'username email');
 
   if (listing) {
     res.json(listing);
@@ -42,7 +42,7 @@ const getListingById = asyncHandler(async (req, res) => {
 // @route   POST /api/listings
 // @access  Private/Owner
 const createListing = asyncHandler(async (req, res) => {
-  const { title, description, category, price, location, images } = req.body;
+  const { title, description, category, price, location, images, amenities } = req.body;
 
   const listing = new Listing({
     owner: req.user._id,
@@ -52,6 +52,7 @@ const createListing = asyncHandler(async (req, res) => {
     price,
     location,
     images,
+    amenities,
   });
 
   const createdListing = await listing.save();
@@ -62,7 +63,7 @@ const createListing = asyncHandler(async (req, res) => {
 // @route   PUT /api/listings/:id
 // @access  Private/Owner
 const updateListing = asyncHandler(async (req, res) => {
-  const { title, description, category, price, location, images, availability } = req.body;
+  const { title, description, category, price, location, images, availability, amenities } = req.body;
 
   const listing = await Listing.findById(req.params.id);
 
@@ -80,6 +81,7 @@ const updateListing = asyncHandler(async (req, res) => {
     listing.location = location || listing.location;
     listing.images = images || listing.images;
     listing.availability = availability !== undefined ? availability : listing.availability;
+    listing.amenities = amenities || listing.amenities;
 
     const updatedListing = await listing.save();
     res.json(updatedListing);
@@ -130,6 +132,7 @@ const seedListings = asyncHandler(async (req, res) => {
       price: 1200,
       location: 'New York, NY',
       images: ['https://via.placeholder.com/300x200?text=Apartment'],
+      amenities: ['Wi-Fi', 'Parking', 'Furnished'],
     },
     {
       title: 'Spacious SUV',
@@ -138,6 +141,7 @@ const seedListings = asyncHandler(async (req, res) => {
       price: 50,
       location: 'Los Angeles, CA',
       images: ['https://via.placeholder.com/300x200?text=SUV'],
+      amenities: ['AC', 'GPS', 'Automatic'],
     },
     {
       title: 'Modern Chair',
@@ -146,6 +150,7 @@ const seedListings = asyncHandler(async (req, res) => {
       price: 15,
       location: 'Chicago, IL',
       images: ['https://via.placeholder.com/300x200?text=Chair'],
+      amenities: ['Adjustable Height', 'Lumbar Support'],
     },
     {
       title: 'Gaming Laptop',
@@ -154,6 +159,7 @@ const seedListings = asyncHandler(async (req, res) => {
       price: 80,
       location: 'Houston, TX',
       images: ['https://via.placeholder.com/300x200?text=Laptop'],
+      amenities: ['High Refresh Rate', 'Dedicated GPU'],
     },
   ];
 
@@ -166,7 +172,8 @@ const seedListings = asyncHandler(async (req, res) => {
         title: `${baseListing.title} ${i + 1}`,
         price: baseListing.price + (i * 10),
         location: `${baseListing.location.split(',')[0]}, Area ${i + 1}`,
-        images: baseListing.images.map(img => `${img}${i + 1}`)
+        images: baseListing.images.map(img => `${img}${i + 1}`),
+        amenities: baseListing.amenities,
       });
     });
   }
