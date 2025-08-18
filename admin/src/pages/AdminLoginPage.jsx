@@ -1,14 +1,39 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../index.css';
 
 function AdminLoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Admin Login submitted:', { email, password });
-    // TODO: Integrate with backend API for admin authentication
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const { data } = await axios.post(
+        '/api/users/login',
+        { email, password },
+        config
+      );
+
+      if (data.role === 'Admin') {
+        console.log('Admin Login successful:', data);
+        localStorage.setItem('adminInfo', JSON.stringify(data));
+        navigate('/admin/dashboard');
+      } else {
+        alert('You are not authorized to access the admin panel.');
+      }
+    } catch (error) {
+      console.error('Admin Login failed:', error.response.data.message);
+      alert(error.response.data.message || 'Admin Login failed');
+    }
   };
 
   return (
