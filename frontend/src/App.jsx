@@ -1,33 +1,39 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer'; // Import Footer
 import HomePage from './pages/HomePage';
 import LoginPage from '././pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import ListingsPage from './pages/ListingsPage'; // Import ListingsPage
+import ListingsPage from './pages/ListingsPage';
 import PrivateRoute from './components/PrivateRoute';
-import ProfilePage from './pages/ProfilePage'; // Placeholder for a protected page
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/listings" element={<ListingsPage />} /> {/* Public Listings Page */}
-        
-        {/* Protected Routes */}
-        <Route 
-          path="/profile"
-          element={
-            <PrivateRoute>
-              <ProfilePage />
-            </PrivateRoute>
-          }
-        />
-        {/* Add other protected routes here as needed */}
-      </Routes>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Navbar />
+        <main style={{ flexGrow: '1' }}>{/* Main content area */}
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/listings" element={<ListingsPage />} />
+            
+            {/* Protected Routes */}
+            <Route 
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <ProfilePage />
+                </PrivateRoute>
+              }
+            />
+            {/* Add other protected routes here as needed */}
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }
