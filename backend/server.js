@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
+const listingRoutes = require('./routes/listingRoutes');
 const adminSeedRoutes = require('./routes/adminSeedRoutes');
 
 dotenv.config();
@@ -30,6 +31,8 @@ app.get('/', (req, res) => {
 
 // User routes
 app.use('/api/users', userRoutes);
+// Listing routes
+app.use('/api/listings', listingRoutes);
 
 // Admin seed route (TEMPORARY - REMOVE AFTER USE)
 app.use('/api/admin', adminSeedRoutes);
