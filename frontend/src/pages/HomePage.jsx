@@ -12,6 +12,8 @@ function HomePage() {
   useEffect(() => {
     const fetchFeaturedListings = async () => {
       try {
+        // For simplicity, fetching all listings and taking a few random ones
+        // In a real app, you'd have a dedicated API for featured listings
         const { data } = await axios.get('/api/listings');
         const shuffled = data.sort(() => 0.5 - Math.random());
         setFeaturedListings(shuffled.slice(0, 4)); // Get 4 random listings
@@ -25,6 +27,10 @@ function HomePage() {
   const handleSearch = (e) => {
     e.preventDefault();
     navigate(`/listings?search=${searchQuery}&category=${category}`);
+  };
+
+  const handleViewDetails = (id) => {
+    navigate(`/listings/${id}`);
   };
 
   return (
@@ -156,7 +162,7 @@ function HomePage() {
                     }}
                   />
                 )}
-                <button style={{
+                <button onClick={() => handleViewDetails(listing._id)} style={{
                   padding: '0.6rem 1rem',
                   borderRadius: '4px',
                   border: 'none',
