@@ -6,7 +6,21 @@ const User = require('../models/User'); // Import User model
 // @route   GET /api/listings
 // @access  Public
 const getListings = asyncHandler(async (req, res) => {
-  const listings = await Listing.find({});
+  const keyword = req.query.search
+    ? {
+        $or: [
+          { title: { $regex: req.query.search, $options: 'i' } },
+          { description: { $regex: req.query.search, $options: 'i' } },
+          { location: { $regex: req.query.search, $options: 'i' } },
+        ],
+      }
+    : {};
+
+  const category = req.query.category && req.query.category !== 'All'
+    ? { category: req.query.category }
+    : {};
+
+  const listings = await Listing.find({ ...keyword, ...category });
   res.json(listings);
 });
 

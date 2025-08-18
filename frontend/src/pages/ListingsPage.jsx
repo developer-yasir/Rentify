@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import '../index.css';
 
 function ListingsPage() {
@@ -7,10 +8,28 @@ function ListingsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const searchQuery = queryParams.get('search') || '';
+  const category = queryParams.get('category') || 'All';
+
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const { data } = await axios.get('/api/listings');
+        // Construct query string for API call
+        let queryString = '/api/listings';
+        const params = [];
+        if (searchQuery) {
+          params.push(`search=${searchQuery}`);
+        }
+        if (category && category !== 'All') {
+          params.push(`category=${category}`);
+        }
+        if (params.length > 0) {
+          queryString += `?${params.join('&')}`;
+        }
+
+        const { data } = await axios.get(queryString);
         setListings(data);
         setLoading(false);
       } catch (err) {
@@ -22,7 +41,7 @@ function ListingsPage() {
     };
 
     fetchListings();
-  }, []);
+  }, [searchQuery, category]); // Re-fetch when search query or category changes
 
   return (
     <div style={{
