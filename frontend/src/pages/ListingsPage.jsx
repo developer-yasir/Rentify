@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../index.css';
 
 function ListingsPage() {
@@ -9,6 +9,7 @@ function ListingsPage() {
   const [error, setError] = useState(null);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get('search') || '';
   const category = queryParams.get('category') || 'All';
@@ -42,6 +43,10 @@ function ListingsPage() {
 
     fetchListings();
   }, [searchQuery, category]); // Re-fetch when search query or category changes
+
+  const handleViewDetails = (id) => {
+    navigate(`/listings/${id}`);
+  };
 
   return (
     <div style={{
@@ -96,7 +101,7 @@ function ListingsPage() {
                   }}
                 />
               )}
-              <button style={{
+              <button onClick={() => handleViewDetails(listing._id)} style={{
                 padding: '0.6rem 1rem',
                 borderRadius: '4px',
                 border: 'none',
