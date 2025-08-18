@@ -4,8 +4,8 @@ import axios from 'axios';
 import '../index.css';
 
 function AdminLoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('yasir@gmail.com');
+  const [password, setPassword] = useState('admin');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
