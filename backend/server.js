@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const listingRoutes = require('./routes/listingRoutes');
 const adminSeedRoutes = require('./routes/adminSeedRoutes');
+const listingSeedRoutes = require('./routes/listingSeedRoutes');
 
 dotenv.config();
 
@@ -36,6 +37,9 @@ app.use('/api/listings', listingRoutes);
 
 // Admin seed route (TEMPORARY - REMOVE AFTER USE)
 app.use('/api/admin', adminSeedRoutes);
+
+// Listing seed route (TEMPORARY - REMOVE AFTER USE)
+app.use('/api/listings', listingSeedRoutes);
 
 const PORT = process.env.PORT || 5000;
 

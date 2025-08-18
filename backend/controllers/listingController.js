@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Listing = require('../models/Listing');
+const User = require('../models/User'); // Import User model
 
 // @desc    Get all listings
 // @route   GET /api/listings
@@ -95,10 +96,68 @@ const deleteListing = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Seed sample listings
+// @route   GET /api/listings/seed
+// @access  Public (Temporary for development)
+const seedListings = asyncHandler(async (req, res) => {
+  // Find the admin user to assign as owner
+  const adminUser = await User.findOne({ email: 'yasir@gmail.com' });
+
+  if (!adminUser) {
+    res.status(404);
+    throw new Error('Admin user not found. Please seed admin user first.');
+  }
+
+  const sampleListings = [
+    {
+      owner: adminUser._id,
+      title: 'Cozy Apartment in Downtown',
+      description: 'A beautiful 1-bedroom apartment in the heart of the city.',
+      category: 'Property',
+      price: 1200,
+      location: 'New York, NY',
+      images: ['https://via.placeholder.com/300x200?text=Apartment1', 'https://via.placeholder.com/300x200?text=Apartment2'],
+    },
+    {
+      owner: adminUser._id,
+      title: 'Spacious Family SUV',
+      description: 'Perfect for family trips, comfortable and reliable.',
+      category: 'Vehicle',
+      price: 50,
+      location: 'Los Angeles, CA',
+      images: ['https://via.placeholder.com/300x200?text=SUV1', 'https://via.placeholder.com/300x200?text=SUV2'],
+    },
+    {
+      owner: adminUser._id,
+      title: 'Modern Office Chair',
+      description: 'Ergonomic design for long working hours.',
+      category: 'Furniture',
+      price: 15,
+      location: 'Chicago, IL',
+      images: ['https://via.placeholder.com/300x200?text=Chair1', 'https://via.placeholder.com/300x200?text=Chair2'],
+    },
+    {
+      owner: adminUser._id,
+      title: 'High-Performance Gaming Laptop',
+      description: 'Experience gaming like never before with this powerful machine.',
+      category: 'Gadget',
+      price: 80,
+      location: 'Houston, TX',
+      images: ['https://via.placeholder.com/300x200?text=Laptop1', 'https://via.placeholder.com/300x200?text=Laptop2'],
+    },
+  ];
+
+  await Listing.deleteMany({}); // Clear existing listings before seeding
+  const createdListings = await Listing.insertMany(sampleListings);
+
+  res.status(201).json({ message: 'Listings seeded successfully.', listings: createdListings });
+});
+
 module.exports = {
   getListings,
   getListingById,
   createListing,
   updateListing,
   deleteListing,
+  seedListings,
 };
