@@ -12,8 +12,6 @@ function HomePage() {
   useEffect(() => {
     const fetchFeaturedListings = async () => {
       try {
-        // For simplicity, fetching all listings and taking a few random ones
-        // In a real app, you'd have a dedicated API for featured listings
         const { data } = await axios.get('/api/listings');
         const shuffled = data.sort(() => 0.5 - Math.random());
         setFeaturedListings(shuffled.slice(0, 4)); // Get 4 random listings
@@ -115,7 +113,9 @@ function HomePage() {
       {/* Featured Listings Section */}
       <section style={{
         padding: '4rem 2rem',
-        textAlign: 'center'
+        textAlign: 'center',
+        backgroundColor: 'var(--light-background-color)',
+        color: 'var(--text-color)'
       }}>
         <h2 style={{ color: 'var(--secondary-color)', marginBottom: '2rem' }}>Featured Listings</h2>
         {featuredListings.length === 0 ? (
@@ -178,9 +178,9 @@ function HomePage() {
         padding: '4rem 2rem',
         textAlign: 'center',
         backgroundColor: 'var(--accent-color)',
-        color: '#fff'
+        color: 'var(--text-color)' // Changed to text-color for better contrast
       }}>
-        <h2 style={{ color: '#fff', marginBottom: '2rem' }}>How It Works</h2>
+        <h2 style={{ color: 'var(--secondary-color)', marginBottom: '2rem' }}>How It Works</h2>
         <div style={{
           display: 'flex',
           justifyContent: 'space-around',
@@ -191,29 +191,32 @@ function HomePage() {
         }}>
           <div style={{
             flex: '1 1 250px',
-            backgroundColor: 'rgba(255,255,255,0.2)',
+            backgroundColor: 'rgba(255,255,255,0.8)', // Slightly more opaque
             padding: '1.5rem',
-            borderRadius: '8px'
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
           }}>
-            <h3 style={{ color: '#fff' }}>1. Find Your Rental</h3>
+            <h3 style={{ color: 'var(--primary-color)' }}>1. Find Your Rental</h3>
             <p>Browse a wide variety of properties, vehicles, furniture, and gadgets.</p>
           </div>
           <div style={{
             flex: '1 1 250px',
-            backgroundColor: 'rgba(255,255,255,0.2)',
+            backgroundColor: 'rgba(255,255,255,0.8)',
             padding: '1.5rem',
-            borderRadius: '8px'
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
           }}>
-            <h3 style={{ color: '#fff' }}>2. Book & Pay Securely</h3>
+            <h3 style={{ color: 'var(--primary-color)' }}>2. Book & Pay Securely</h3>
             <p>Securely book your desired item and make payments with ease.</p>
           </div>
           <div style={{
             flex: '1 1 250px',
-            backgroundColor: 'rgba(255,255,255,0.2)',
+            backgroundColor: 'rgba(255,255,255,0.8)',
             padding: '1.5rem',
-            borderRadius: '8px'
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
           }}>
-            <h3 style={{ color: '#fff' }}>3. Enjoy Your Rental</h3>
+            <h3 style={{ color: 'var(--primary-color)' }}>3. Enjoy Your Rental</h3>
             <p>Pick up your rental and enjoy your experience!</p>
           </div>
         </div>
@@ -222,7 +225,9 @@ function HomePage() {
       {/* Call to Action for Owners/Landlords */}
       <section style={{
         padding: '4rem 2rem',
-        textAlign: 'center'
+        textAlign: 'center',
+        backgroundColor: 'var(--light-background-color)',
+        color: 'var(--text-color)'
       }}>
         <h2 style={{ color: 'var(--secondary-color)', marginBottom: '1.5rem' }}>
           Have Something to Rent?
@@ -249,9 +254,9 @@ function HomePage() {
         padding: '4rem 2rem',
         textAlign: 'center',
         backgroundColor: 'var(--accent-color)',
-        color: '#fff'
+        color: 'var(--text-color)' // Changed to text-color for better contrast
       }}>
-        <h2 style={{ color: '#fff', marginBottom: '2rem' }}>What Our Users Say</h2>
+        <h2 style={{ color: 'var(--secondary-color)', marginBottom: '2rem' }}>What Our Users Say</h2>
         <div style={{
           display: 'flex',
           justifyContent: 'space-around',
@@ -262,18 +267,20 @@ function HomePage() {
         }}>
           <div style={{
             flex: '1 1 300px',
-            backgroundColor: 'rgba(255,255,255,0.2)',
+            backgroundColor: 'rgba(255,255,255,0.8)', // Slightly more opaque
             padding: '1.5rem',
-            borderRadius: '8px'
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
           }}>
             <p>"Rentify made finding a temporary apartment so easy! Highly recommend."</p>
             <p><strong>- Jane Doe, Tenant</strong></p>
           </div>
           <div style={{
             flex: '1 1 300px',
-            backgroundColor: 'rgba(255,255,255,0.2)',
+            backgroundColor: 'rgba(255,255,255,0.8)',
             padding: '1.5rem',
-            borderRadius: '8px'
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
           }}>
             <p>"Listing my car was a breeze, and I'm earning extra income."</p>
             <p><strong>- John Smith, Owner</strong></p>
@@ -284,7 +291,9 @@ function HomePage() {
       {/* Location Highlights Section */}
       <section style={{
         padding: '4rem 2rem',
-        textAlign: 'center'
+        textAlign: 'center',
+        backgroundColor: 'var(--light-background-color)',
+        color: 'var(--text-color)'
       }}>
         <h2 style={{ color: 'var(--secondary-color)', marginBottom: '2rem' }}>Popular Locations</h2>
         <div style={{
@@ -354,7 +363,9 @@ function HomePage() {
       {/* Newsletter Signup */}
       <section style={{
         padding: '4rem 2rem',
-        textAlign: 'center'
+        textAlign: 'center',
+        backgroundColor: 'var(--light-background-color)',
+        color: 'var(--text-color)'
       }}>
         <h2 style={{ color: 'var(--secondary-color)', marginBottom: '1.5rem' }}>
           Stay Updated
