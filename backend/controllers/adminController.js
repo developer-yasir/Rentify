@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
+const Listing = require('../models/Listing');
+const ContactMessage = require('../models/ContactMessage');
 
 // @desc    Seed an admin user
 // @route   GET /api/admin/seed
@@ -37,4 +39,21 @@ const seedAdmin = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { seedAdmin };
+
+// @desc    Get dashboard statistics
+// @route   GET /api/admin/dashboard-stats
+// @access  Private/Admin
+const getDashboardStats = asyncHandler(async (req, res) => {
+  const userCount = await User.countDocuments();
+  const listingCount = await Listing.countDocuments();
+  const contactMessageCount = await ContactMessage.countDocuments();
+
+  res.status(200).json({
+    userCount,
+    listingCount,
+    contactMessageCount,
+  });
+});
+
+module.exports = { seedAdmin, getDashboardStats };
+

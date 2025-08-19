@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
 const listingRoutes = require('./routes/listingRoutes');
-const adminSeedRoutes = require('./routes/adminSeedRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 const listingSeedRoutes = require('./routes/listingSeedRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 
@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 });
 
 // Admin seed route (TEMPORARY - REMOVE AFTER USE) - Define more specific routes first
-app.use('/api/admin', adminSeedRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Listing seed route (TEMPORARY - REMOVE AFTER USE) - Define more specific routes first
 app.use('/api/seed/listings', listingSeedRoutes); 

@@ -94,7 +94,7 @@ function ListingsManagement() {
         borderRadius: '4px',
         border: 'none',
         backgroundColor: 'var(--primary-color)',
-        color: 'var(--text-color)',
+        color: '#fff',
         fontSize: '1rem',
         cursor: 'pointer',
         marginBottom: '1.5rem'
