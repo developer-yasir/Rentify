@@ -124,6 +124,9 @@ const seedListings = asyncHandler(async (req, res) => {
     throw new Error('Admin user not found. Please seed admin user first.');
   }
 
+  const imageUrl = 'https://img.freepik.com/free-vector/house-icon_23-2147510119.jpg?semt=ais_hybrid&w=740&q=80';
+  console.log('Image URL:', imageUrl);
+
   const propertyListings = [
     {
       title: 'Modern Downtown Apartment',
@@ -131,7 +134,7 @@ const seedListings = asyncHandler(async (req, res) => {
       category: 'Property',
       price: 1500,
       location: 'New York, NY',
-      images: ['https://via.placeholder.com/300x200?text=ModernApt1', 'https://via.placeholder.com/300x200?text=ModernApt2'],
+      images: [imageUrl, imageUrl],
       amenities: ['Gym', 'Pool', 'Balcony', 'Pet-Friendly'],
     },
     {
@@ -140,7 +143,7 @@ const seedListings = asyncHandler(async (req, res) => {
       category: 'Property',
       price: 2000,
       location: 'Los Angeles, CA',
-      images: ['https://via.placeholder.com/300x200?text=House1', 'https://via.placeholder.com/300x200?text=House2'],
+      images: [imageUrl, imageUrl],
       amenities: ['Garage', 'Garden', 'Dishwasher'],
     },
     {
@@ -149,7 +152,7 @@ const seedListings = asyncHandler(async (req, res) => {
       category: 'Property',
       price: 900,
       location: 'Chicago, IL',
-      images: ['https://via.placeholder.com/300x200?text=StudioLoft1', 'https://via.placeholder.com/300x200?text=StudioLoft2'],
+      images: [imageUrl, imageUrl],
       amenities: ['High Ceilings', 'Natural Light'],
     },
     {
@@ -158,7 +161,7 @@ const seedListings = asyncHandler(async (req, res) => {
       category: 'Property',
       price: 3000,
       location: 'Miami, FL',
-      images: ['https://via.placeholder.com/300x200?text=OceanCondo1', 'https://via.placeholder.com/300x200?text=OceanCondo2'],
+      images: [imageUrl, imageUrl],
       amenities: ['Private Beach Access', 'Spa', 'Concierge'],
     },
   ];
@@ -172,12 +175,13 @@ const seedListings = asyncHandler(async (req, res) => {
         title: `${baseListing.title} ${i + 1}`,
         price: baseListing.price + (i * 100),
         location: `${baseListing.location.split(',')[0]}, Area ${i + 1}`,
-        images: baseListing.images.map(img => `${img}${i + 1}`),
+        images: [imageUrl, imageUrl],
         amenities: baseListing.amenities,
       });
     });
   }
 
+  console.log('Generated Listings:', generatedListings);
   await Listing.deleteMany({}); // Clear existing listings before seeding
   const createdListings = await Listing.insertMany(generatedListings);
 

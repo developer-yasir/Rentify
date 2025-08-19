@@ -40,7 +40,7 @@ function AdminDashboard() {
         </Link>
         <Link to="/admin/listings" style={{
           color: '#fff',
-          textDecoration: 'none
+          textDecoration: 'none',
           fontSize: '1.1rem',
           padding: '0.5rem 0',
           borderBottom: '1px solid rgba(255,255,255,0.2)'

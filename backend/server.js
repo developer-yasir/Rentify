@@ -5,6 +5,7 @@ const userRoutes = require('./routes/userRoutes');
 const listingRoutes = require('./routes/listingRoutes');
 const adminSeedRoutes = require('./routes/adminSeedRoutes');
 const listingSeedRoutes = require('./routes/listingSeedRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 
 dotenv.config();
 
@@ -40,6 +41,8 @@ app.use('/api/seed/listings', listingSeedRoutes);
 app.use('/api/users', userRoutes);
 // Listing routes - Define more general routes later
 app.use('/api/listings', listingRoutes);
+// Contact routes
+app.use('/api/contact', contactRoutes);
 
 const PORT = process.env.PORT || 5000;
 

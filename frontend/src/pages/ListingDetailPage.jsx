@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../index.css';
+import './ListingDetailPage.css';
 
 function ListingDetailPage() {
   const { id } = useParams();
@@ -40,99 +41,39 @@ function ListingDetailPage() {
   };
 
   if (loading) {
-    return <p style={{ textAlign: 'center', padding: '2rem' }}>Loading listing details...</p>;
+    return <p className="loading-message">Loading listing details...</p>;
   }
 
   if (error) {
-    return <p style={{ textAlign: 'center', padding: '2rem', color: 'red' }}>Error: {error}</p>;
+    return <p className="error-message">Error: {error}</p>;
   }
 
   if (!listing) {
-    return <p style={{ textAlign: 'center', padding: '2rem' }}>Listing not found.</p>;
+    return <p className="not-found-message">Listing not found.</p>;
   }
 
   return (
-    <div style={{
-      padding: '2rem',
-      backgroundColor: 'var(--light-background-color)',
-      minHeight: 'calc(100vh - 60px)',
-      color: 'var(--text-color)',
-      maxWidth: '900px',
-      margin: '2rem auto',
-      borderRadius: '8px',
-      boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
-    }}>
+    <div className="listing-detail-page">
       {/* Image Carousel/Gallery */}
       {listing.images && listing.images.length > 0 && (
-        <div style={{
-          position: 'relative',
-          width: '100%',
-          height: '400px',
-          overflow: 'hidden',
-          borderRadius: '8px',
-          marginBottom: '1.5rem'
-        }}>
+        <div className="image-carousel">
           <img 
             src={listing.images[currentImageIndex]}
             alt={`${listing.title} - ${currentImageIndex + 1}`}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              transition: 'opacity 0.5s ease-in-out'
-            }}
+            className="carousel-image"
           />
           {listing.images.length > 1 && (
-            <div style={{
-              position: 'absolute',
-              top: '50%',
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              transform: 'translateY(-50%)',
-              padding: '0 1rem'
-            }}>
-              <button onClick={prevImage} style={{
-                backgroundColor: 'rgba(0,0,0,0.5)',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                fontSize: '1.5rem',
-                cursor: 'pointer'
-              }}>&#10094;</button>
-              <button onClick={nextImage} style={{
-                backgroundColor: 'rgba(0,0,0,0.5)',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                fontSize: '1.5rem',
-                cursor: 'pointer'
-              }}>&#10095;</button>
+            <div className="carousel-controls">
+              <button onClick={prevImage} className="carousel-btn">&#10094;</button>
+              <button onClick={nextImage} className="carousel-btn">&#10095;</button>
             </div>
           )}
-          <div style={{
-            position: 'absolute',
-            bottom: '10px',
-            width: '100%',
-            textAlign: 'center'
-          }}>
+          <div className="carousel-dots">
             {listing.images.map((_, idx) => (
               <span
                 key={idx}
                 onClick={() => setCurrentImageIndex(idx)}
-                style={{
-                  display: 'inline-block',
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  backgroundColor: idx === currentImageIndex ? '#fff' : 'rgba(255,255,255,0.5)',
-                  margin: '0 5px',
-                  cursor: 'pointer'
-                }}
+                className={`dot ${idx === currentImageIndex ? 'active' : ''}`}
               ></span>
             ))}
           </div>
@@ -140,56 +81,32 @@ function ListingDetailPage() {
       )}
 
       {/* Clear and Concise Overview */}
-      <div style={{
-        backgroundColor: '#fff',
-        padding: '1.5rem',
-        borderRadius: '8px',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        marginBottom: '1.5rem'
-      }}>
-        <h1 style={{
-          color: 'var(--secondary-color)',
-          marginBottom: '0.5rem',
-          textAlign: 'left'
-        }}>
-          {listing.title}
-        </h1>
-        <p style={{ fontSize: '1.2rem', color: 'var(--primary-color)', marginBottom: '1rem' }}>
+      <div className="listing-section">
+        <h1 className="listing-title">{listing.title}</h1>
+        <p className="listing-price">
           <strong>Price:</strong> ${listing.price} per day/month (placeholder)
         </p>
-        <p style={{ fontSize: '1.1rem' }}>
+        <p className="listing-info">
           <strong>Location:</strong> {listing.location}
         </p>
-        <p style={{ fontSize: '1.1rem' }}>
+        <p className="listing-info">
           <strong>Category:</strong> {listing.category}
         </p>
       </div>
       
       {/* Detailed Description Section */}
-      <div style={{
-        backgroundColor: '#fff',
-        padding: '1.5rem',
-        borderRadius: '8px',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        marginBottom: '1.5rem'
-      }}>
-        <h2 style={{ color: 'var(--secondary-color)', marginBottom: '1rem' }}>Description</h2>
+      <div className="listing-section">
+        <h2 className="section-title">Description</h2>
         <p>{listing.description}</p>
       </div>
 
       {/* Key Features/Amenities List */}
-      <div style={{
-        backgroundColor: '#fff',
-        padding: '1.5rem',
-        borderRadius: '8px',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        marginBottom: '1.5rem'
-      }}>
-        <h2 style={{ color: 'var(--secondary-color)', marginBottom: '1rem' }}>Key Features</h2>
+      <div className="listing-section">
+        <h2 className="section-title">Key Features</h2>
         {listing.amenities && listing.amenities.length > 0 ? (
-          <ul style={{ listStyle: 'none', padding: '0', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.5rem' }}>
+          <ul className="amenities-list">
             {listing.amenities.map((amenity, index) => (
-              <li key={index} style={{ backgroundColor: 'var(--light-background-color)', padding: '0.5rem', borderRadius: '4px', textAlign: 'center' }}>{amenity}</li>
+              <li key={index} className="amenity-item">{amenity}</li>
             ))}
           </ul>
         ) : (
@@ -198,30 +115,13 @@ function ListingDetailPage() {
       </div>
 
       {/* Owner Information/Contact */}
-      <div style={{
-        backgroundColor: '#fff',
-        padding: '1.5rem',
-        borderRadius: '8px',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        marginBottom: '1.5rem'
-      }}>
-        <h2 style={{ color: 'var(--secondary-color)', marginBottom: '1rem' }}>Owner Information</h2>
+      <div className="listing-section">
+        <h2 className="section-title">Owner Information</h2>
         {listing.owner ? (
           <>
             <p><strong>Username:</strong> {listing.owner.username}</p>
             <p><strong>Email:</strong> {listing.owner.email}</p>
-            <button style={{
-              padding: '0.8rem 1.5rem',
-              borderRadius: '4px',
-              border: 'none',
-              backgroundColor: 'var(--primary-color)',
-              color: '#fff',
-              fontSize: '1rem',
-              cursor: 'pointer',
-              marginTop: '1rem'
-            }}>
-              Contact Owner
-            </button>
+            <button className="contact-btn">Contact Owner</button>
           </>
         ) : (
           <p>Owner information not available.</p>
@@ -229,65 +129,26 @@ function ListingDetailPage() {
       </div>
 
       {/* Booking/Availability Calendar (Placeholder) */}
-      <div style={{
-        backgroundColor: '#fff',
-        padding: '1.5rem',
-        borderRadius: '8px',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        marginBottom: '1.5rem'
-      }}>
-        <h2 style={{ color: 'var(--secondary-color)', marginBottom: '1rem' }}>Availability Calendar</h2>
+      <div className="listing-section">
+        <h2 className="section-title">Availability Calendar</h2>
         <p>Interactive calendar for booking will go here.</p>
       </div>
 
       {/* Ratings & Reviews Section (Placeholder) */}
-      <div style={{
-        backgroundColor: '#fff',
-        padding: '1.5rem',
-        borderRadius: '8px',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        marginBottom: '1.5rem'
-      }}>
-        <h2 style={{ color: 'var(--secondary-color)', marginBottom: '1rem' }}>Ratings & Reviews</h2>
+      <div className="listing-section">
+        <h2 className="section-title">Ratings & Reviews</h2>
         <p>User ratings and reviews will be displayed here.</p>
       </div>
 
       {/* Similar Listings Section (Placeholder) */}
-      <div style={{
-        backgroundColor: '#fff',
-        padding: '1.5rem',
-        borderRadius: '8px',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        marginBottom: '1.5rem'
-      }}>
-        <h2 style={{ color: 'var(--secondary-color)', marginBottom: '1rem' }}>Similar Listings</h2>
+      <div className="listing-section">
+        <h2 className="section-title">Similar Listings</h2>
         <p>Similar listings will be shown here.</p>
       </div>
 
       {/* Call to Action (Booking/Inquiry) - Sticky (Placeholder) */}
-      <div style={{
-        position: 'sticky',
-        bottom: '0',
-        left: '0',
-        width: '100%',
-        backgroundColor: 'var(--primary-color)',
-        padding: '1rem',
-        textAlign: 'center',
-        boxShadow: '0 -2px 10px rgba(0,0,0,0.1)'
-      }}>
-        <button style={{
-          padding: '1rem 2rem',
-          borderRadius: '4px',
-          border: 'none',
-          backgroundColor: 'var(--secondary-color)',
-          color: '#fff',
-          fontSize: '1.2rem',
-          cursor: 'pointer',
-          width: '100%',
-          maxWidth: '400px'
-        }}>
-          Book Now
-        </button>
+      <div className="sticky-cta">
+        <button className="book-now-btn">Book Now</button>
       </div>
     </div>
   );

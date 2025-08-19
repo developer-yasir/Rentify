@@ -1,0 +1,161 @@
+/* ContactPage.css */
+
+.contact-page {
+  padding: 4rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--light-background-color);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.contact-page h1 {
+  font-size: clamp(2.5rem, 5vw, 3rem);
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.contact-form-section {
+  background-color: var(--white-color);
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.contact-form-section h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2rem);
+  color: var(--secondary-color);
+  margin-bottom: 1.5rem;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form button {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  padding: 0.9rem 1.8rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #0e3353;
+}
+
+.contact-info-section {
+  background-color: var(--white-color);
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.contact-info-section h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2rem);
+  color: var(--secondary-color);
+  margin-bottom: 1.5rem;
+}
+
+.contact-info-section p {
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  line-height: 1.7;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.contact-info-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-info-section ul li {
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  line-height: 1.8;
+  color: var(--text-color);
+  margin-bottom: 0.8rem;
+}
+
+.contact-info-section ul li strong {
+  color: var(--primary-color);
+}
+
+.recommended-sections {
+  margin-top: 3rem;
+}
+
+.recommended-sections h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2rem);
+  color: var(--secondary-color);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.recommended-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.recommended-card {
+  background-color: var(--white-color);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.recommended-card h3 {
+  font-size: clamp(1.3rem, 2.5vw, 1.5rem);
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.recommended-card p {
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  color: var(--text-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact-page {
+    padding: 2rem 1.5rem;
+  }
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+}
